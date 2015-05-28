@@ -1,11 +1,4 @@
-﻿//------------------------------------------------------------------------------
-// $URL: https://forac-storage.forac.ulaval.ca/svn/Forac/Sources/features/LogiLab/201307021/Web/Silvilab/DataModels/LogiLab/ModelObjects/Optimization.cs $
-// $Id: Optimization.cs 694 2014-05-19 18:19:34Z slemieux $
-// 
-// Copyright (c) 2009-2014, Universite Laval - FORAC
-//------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,7 +31,7 @@ namespace SolverLab.CplexSolver
             throw new NotImplementedException();
         }
 
-        protected override void InternalCreateModel()
+        protected override void InternalCreateModel(bool maximize)
         {
             // Add variables
             for (var i = 0; i < vars.Count; ++i)
@@ -79,13 +72,15 @@ namespace SolverLab.CplexSolver
 
             // Add objective
             var objValIndexes = vars.Where(v => v.Value.objval != 0).Select(v => v.Key).ToList();
-            _objective = _model.AddObjective(ObjectiveSense.Maximize, _model.ScalProd(objValIndexes.Select(v => vars[v].objval).ToArray(), objValIndexes.Select(v => _vars[v]).ToArray()));
+            _objective = _model.AddObjective(maximize ? ObjectiveSense.Maximize : ObjectiveSense.Minimize, _model.ScalProd(objValIndexes.Select(v => vars[v].objval).ToArray(), objValIndexes.Select(v => _vars[v]).ToArray()));
         }
 
         protected override void InternalSetParam(Param param, string value)
         {
             switch (param)
             {
+                case Param.Maximize:
+                    break;
                 case Param.IsMip:
                     if (!bool.Parse(value))
                     {

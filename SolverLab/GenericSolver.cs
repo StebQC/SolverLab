@@ -1,11 +1,4 @@
-﻿//------------------------------------------------------------------------------
-// $URL: https://forac-storage.forac.ulaval.ca/svn/Forac/Sources/features/LogiLab/201307021/Web/Silvilab/DataModels/LogiLab/ModelObjects/Optimization.cs $
-// $Id: Optimization.cs 694 2014-05-19 18:19:34Z slemieux $
-// 
-// Copyright (c) 2009-2014, Universite Laval - FORAC
-//------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -30,6 +23,7 @@ namespace SolverLab
 
     public enum Param
     {
+        Maximize,
         TimeLimit,
         Gap,
         IsMip,
@@ -150,17 +144,17 @@ namespace SolverLab
 
         }
 
-        public void CreateModel()
+        public void CreateModel(bool maximize)
         {
             if (_modelCreated)
             {
                 throw new NotSupportedException("The model was already created!");
             }
-            InternalCreateModel();
+            InternalCreateModel(maximize);
             _modelCreated = true;
         }
 
-        protected abstract void InternalCreateModel();
+        protected abstract void InternalCreateModel(bool maximize);
 
         public void SetParam(Param param, string value)
         {
@@ -181,11 +175,11 @@ namespace SolverLab
 
         protected abstract void InternalSetParam(Param param, string value);
 
-        public void Solve()
+        public void Solve(bool maximize)
         {
             var memoryUsed = Process.GetCurrentProcess().PrivateMemorySize64;
             Console.WriteLine("Memory used before solve(): {0} MB, {1} B ", ((double)memoryUsed / 1024.0 / 1024.0).ToString("N2"), memoryUsed);
-            CreateModel();
+            CreateModel(maximize);
             InternalSolve();
             memoryUsed = Process.GetCurrentProcess().PrivateMemorySize64;
             Console.WriteLine("Memory used before solve(): {0} MB, {1} B ", ((double)memoryUsed / 1024.0 / 1024.0).ToString("N2"), memoryUsed);

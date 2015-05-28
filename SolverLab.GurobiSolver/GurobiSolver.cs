@@ -1,11 +1,4 @@
-﻿//------------------------------------------------------------------------------
-// $URL: https://forac-storage.forac.ulaval.ca/svn/Forac/Sources/features/LogiLab/201307021/Web/Silvilab/DataModels/LogiLab/ModelObjects/Optimization.cs $
-// $Id: Optimization.cs 694 2014-05-19 18:19:34Z slemieux $
-// 
-// Copyright (c) 2009-2014, Universite Laval - FORAC
-//------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,7 +23,6 @@ namespace SolverLab.GurobiSolver
             }
             _env = new GRBEnv();
             _model = new GRBModel(_env);
-            _model.Set(GRB.IntAttr.ModelSense, -1);
         }
 
         protected override void InternalChangeObjectives(int[] columns, double[] values)
@@ -38,8 +30,9 @@ namespace SolverLab.GurobiSolver
             throw new NotImplementedException();
         }
 
-        protected override void InternalCreateModel()
+        protected override void InternalCreateModel(bool maximize)
         {
+            _model.Set(GRB.IntAttr.ModelSense, maximize ? -1 : 1);
             // Add variables
             for (var i = 0; i < vars.Count; ++i)
             {

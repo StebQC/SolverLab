@@ -1,11 +1,4 @@
-﻿//------------------------------------------------------------------------------
-// $URL: https://forac-storage.forac.ulaval.ca/svn/Forac/Sources/features/LogiLab/201307021/Web/Silvilab/DataModels/LogiLab/ModelObjects/Optimization.cs $
-// $Id: Optimization.cs 694 2014-05-19 18:19:34Z slemieux $
-// 
-// Copyright (c) 2009-2014, Universite Laval - FORAC
-//------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -122,9 +115,9 @@ namespace SolverLab.GlpkSolver
             throw new NotImplementedException();
         }
 
-        protected override void InternalCreateModel()
+        protected override void InternalCreateModel(bool maximize)
         {
-            GlpkFunctions.glp_set_obj_dir(_model, (int)GlpkConstants.OptimizationDirection.GLP_MAX);
+            GlpkFunctions.glp_set_obj_dir(_model, maximize ? (int)GlpkConstants.OptimizationDirection.GLP_MAX : (int)GlpkConstants.OptimizationDirection.GLP_MIN);
 
             // Add constraints
             GlpkFunctions.glp_add_rows(_model, consts.Count);
