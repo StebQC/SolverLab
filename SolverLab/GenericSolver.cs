@@ -23,7 +23,6 @@ namespace SolverLab
 
     public enum Param
     {
-        Maximize,
         TimeLimit,
         Gap,
         IsMip,
@@ -43,6 +42,16 @@ namespace SolverLab
         protected Dictionary<int, Const> consts = new Dictionary<int, Const>();
         protected List<Nz> nzs = new List<Nz>();
         private bool _modelCreated = false;
+
+        public string Version
+        {
+            get
+            {
+                return InternalVersion();
+            }
+        }
+
+        protected abstract string InternalVersion();
 
         public int AddConst(string name, double rhs, ConstSense sense)
         {
@@ -134,14 +143,18 @@ namespace SolverLab
             }
         }
 
-        public void ChangeBounds(int[] rows, ConstSense[] senses, double[] values)
+        public void ChangeBounds(int[] columns, double[] lb, double[] ub)
         {
             if (_modelCreated)
             {
                 throw new NotSupportedException("The model was already created!");
             }
 
-
+            for (var i = 0; i < columns.Length; ++i)
+            {
+                vars[i].lb = lb[i];
+                vars[i].ub = ub[i];
+            }
         }
 
         public void CreateModel(bool maximize)
@@ -227,7 +240,19 @@ namespace SolverLab
 
         public abstract void DeleteModel();
 
+        public string SolverName
+        {
+            get
+            {
+                return GetSolverName();
+            }
+        }
+
         protected abstract string GetSolverName();
+
+        public abstract void ExportConflicts(string filename);
+
+        public abstract void ExportModel(string filename);
     }
 
     public class Var

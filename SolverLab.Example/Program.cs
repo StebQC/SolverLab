@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SolverLab;
-using SolverLab.GlpkSolver;
+//using SolverLab;
+//using SolverLab.GlpkSolver;
 
 namespace SolverLab.Example
 {
@@ -43,7 +43,7 @@ namespace SolverLab.Example
 
             solver.Solve(false);
 
-            Console.WriteLine("The objective value is: {0}", solver.GetObjVal());
+            Console.WriteLine("The objective value is: {0} ({1}: {2})", solver.GetObjVal(), solver.SolverName, solver.Version);
 
             if (System.Diagnostics.Debugger.IsAttached)
             {

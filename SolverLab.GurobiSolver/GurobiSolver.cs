@@ -25,6 +25,11 @@ namespace SolverLab.GurobiSolver
             _model = new GRBModel(_env);
         }
 
+        protected override string InternalVersion()
+        {
+            return System.Reflection.Assembly.GetAssembly(typeof(GRBModel)).GetName().Version.ToString();
+        }
+
         protected override void InternalChangeObjectives(int[] columns, double[] values)
         {
             throw new NotImplementedException();
@@ -155,6 +160,16 @@ namespace SolverLab.GurobiSolver
         protected override string GetSolverName()
         {
             return "Gurobi";
+        }
+
+        public override void ExportConflicts(string filename)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void ExportModel(string filename)
+        {
+            _model.Write(filename);
         }
     }
 }

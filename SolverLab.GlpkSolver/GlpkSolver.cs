@@ -110,6 +110,11 @@ namespace SolverLab.GlpkSolver
             Marshal.StructureToPtr(mipOptions, _mipParm, false);
         }
 
+        protected override string InternalVersion()
+        {
+            return GlpkFunctions.glp_version();
+        }
+
         protected override void InternalChangeObjectives(int[] columns, double[] values)
         {
             throw new NotImplementedException();
@@ -302,6 +307,16 @@ namespace SolverLab.GlpkSolver
         protected override string GetSolverName()
         {
             return "Glpk";
+        }
+
+        public override void ExportConflicts(string filename)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void ExportModel(string filename)
+        {
+            throw new NotImplementedException();
         }
         
         private int GetSolutionStatus()

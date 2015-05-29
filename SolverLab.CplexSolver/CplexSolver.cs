@@ -26,6 +26,11 @@ namespace SolverLab.CplexSolver
             _model = new Cplex();
         }
 
+        protected override string InternalVersion()
+        {
+            return _model.Version;
+        }
+
         protected override void InternalChangeObjectives(int[] columns, double[] values)
         {
             throw new NotImplementedException();
@@ -50,10 +55,8 @@ namespace SolverLab.CplexSolver
             // Add constraints
             var groupedNzByConst = nzs.GroupBy(n => n.row).ToDictionary(g => g.Key, g => g.ToList());
             foreach(var currentNzs in groupedNzByConst)
-            //for (var i = 0; i < groupedNzByConst.Count; ++i)
             {
                 var currentConts = consts[currentNzs.Key];
-                //var expr = _model.ScalProd(groupedNzByConst[i].Select(n => n.val).ToArray(), groupedNzByConst[i].Select(n => _vars[n.col]).ToArray());
                 var expr = _model.ScalProd(currentNzs.Value.Select(n => n.val).ToArray(), currentNzs.Value.Select(n => _vars[n.col]).ToArray());
 
                 switch (currentConts.sense)
@@ -79,8 +82,6 @@ namespace SolverLab.CplexSolver
         {
             switch (param)
             {
-                case Param.Maximize:
-                    break;
                 case Param.IsMip:
                     if (!bool.Parse(value))
                     {
@@ -155,6 +156,16 @@ namespace SolverLab.CplexSolver
         protected override string GetSolverName()
         {
             return "Cplex";
+        }
+
+        public override void ExportConflicts(string filename)
+        {
+            _model.WriteConflict(filename);
+        }
+
+        public override void ExportModel(string filename)
+        {
+            _model.ExportModel(filename);
         }
     }
 }
