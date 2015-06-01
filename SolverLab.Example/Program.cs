@@ -12,13 +12,17 @@ namespace SolverLab.Example
     {
         public static void Main(string[] args)
         {
-            var solver = new GlpkSolver.GlpkSolver();
+            var solver = new CbcSolver.CbcSolver();
+            //var solver = new CplexSolver.CplexSolver();
+            //var solver = new GurobiSolver.GurobiSolver();
+            //var solver = new GlpkSolver.GlpkSolver();
 
             //minimize    3 x1 - x2
             //subject to  -x1 + 6 x2 - x3 + x4   >= -3
             //                  7 x2      + 2 x4 =   5
             //            x1 +    x2 + x3        =   1
             //                         x3 +   x4 <=  2
+
             solver.AddVar("x1", 3, 0, double.PositiveInfinity, VarType.Linear);
             solver.AddVar("x2", -1, 0, double.PositiveInfinity, VarType.Linear);
             solver.AddVar("x3", 0, 0, double.PositiveInfinity, VarType.Linear);
@@ -42,6 +46,7 @@ namespace SolverLab.Example
             solver.AddNz(3, 3, 1);
 
             solver.Solve(false);
+            solver.ExportModel("D:\\Temp.mps");
 
             Console.WriteLine("The objective value is: {0} ({1}: {2})", solver.GetObjVal(), solver.SolverName, solver.Version);
 

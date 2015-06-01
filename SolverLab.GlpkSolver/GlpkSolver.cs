@@ -316,7 +316,7 @@ namespace SolverLab.GlpkSolver
 
         public override void ExportModel(string filename)
         {
-            throw new NotImplementedException();
+            GlpkFunctions.glp_write_mps(_model, (int)GlpkConstants.MpsFileFormat.GLP_MPS_FILE, null, filename);
         }
         
         private int GetSolutionStatus()

@@ -4,7 +4,7 @@ A generic interface in .NET to interact with different solvers:
 0. IBM CPLEX Optimizer (http://www-01.ibm.com/software/commerce/optimization/cplex-optimizer/)
 0. Gurobi Optimizer (http://www.gurobi.com/)
 0. GNU Linear Programming Kit (GLPK) (http://www.gnu.org/software/glpk/)
-0. ~~CBC (http://www.coin-or.org/projects/Cbc.xml)~~
+0. CBC (http://www.coin-or.org/projects/Cbc.xml)
 
 
 ## Example

@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{426DB6ED-951D-413F-8930-593F88620C15}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{AA629BC1-6D77-477B-9F2E-ED949D50EDAB}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SolverLab.Example</RootNamespace>
-    <AssemblyName>SolverLab.Example</AssemblyName>
+    <RootNamespace>SolverLab.CbcSolver</RootNamespace>
+    <AssemblyName>SolverLab.CbcSolver</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -21,9 +20,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -35,11 +34,11 @@
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -49,7 +48,6 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -61,29 +59,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="CbcFunctions.cs" />
+    <Compile Include="CbcSolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SolverLab.CbcSolver\SolverLab.CbcSolver.csproj">
-      <Project>{aa629bc1-6d77-477b-9f2e-ed949d50edab}</Project>
-      <Name>SolverLab.CbcSolver</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SolverLab.CplexSolver\SolverLab.CplexSolver.csproj">
-      <Project>{4e663cf0-42da-4a58-b073-948f303a246c}</Project>
-      <Name>SolverLab.CplexSolver</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SolverLab.GlpkSolver\SolverLab.GlpkSolver.csproj">
-      <Project>{4b986c08-6339-45e5-a13d-0e7581854c61}</Project>
-      <Name>SolverLab.GlpkSolver</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SolverLab.GurobiSolver\SolverLab.GurobiSolver.csproj">
-      <Project>{0ae9a804-f3af-443f-9ef5-7ccb558d268b}</Project>
-      <Name>SolverLab.GurobiSolver</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SolverLab\SolverLab.csproj">
       <Project>{c65ddb9d-e23c-4e1b-b402-7a23d322a362}</Project>
       <Name>SolverLab</Name>

@@ -205,6 +205,18 @@ namespace SolverLab.GlpkSolver
             /// </summary>
             GLP_OFF = 0
         }
+
+        public enum MpsFileFormat
+        {
+            /// <summary>
+            /// fixed (ancient)
+            /// </summary>
+            GLP_MPS_DECK = 1,
+            /// <summary>
+            /// free (modern)
+            /// </summary>
+            GLP_MPS_FILE = 2
+        }
     }
 }
 

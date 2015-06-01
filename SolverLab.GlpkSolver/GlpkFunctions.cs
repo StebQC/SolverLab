@@ -56,5 +56,7 @@ namespace SolverLab.GlpkSolver
         public static extern unsafe int glp_delete_prob(IntPtr P);
         [DllImport(_dllName)]
         public static extern unsafe string glp_version();
+        [DllImport(_dllName)]
+        public static extern unsafe int glp_write_mps(IntPtr P, int fmt, object parm, string fname);
     }
 }
