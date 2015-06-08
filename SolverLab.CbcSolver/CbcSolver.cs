@@ -167,7 +167,8 @@ namespace SolverLab.CbcSolver
 
         public override void DeleteModel()
         {
-            throw new NotImplementedException();
+            CbcFunctions.Cbc_deleteModel(_model);
+            _model = IntPtr.Zero;
         }
 
         protected override string GetSolverName()

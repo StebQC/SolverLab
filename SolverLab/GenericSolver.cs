@@ -59,9 +59,14 @@ namespace SolverLab
             return consts.Count - 1;
         }
 
-        public int AddConsts(string[] name, double[] rhs, ConstSense[] sense)
+        public int[] AddConsts(string[] name, double[] rhs, ConstSense[] sense)
         {
-            throw new NotImplementedException();
+            int[] indexes = new int[name.Length];
+            for (int i = 0; i < name.Length; ++i)
+            {
+                indexes[i] = AddConst(name[i], rhs[i], sense[i]);
+            }
+            return indexes;
         }
 
         public int AddVar(string name, double objval, double lb, double ub, VarType type)
@@ -70,9 +75,14 @@ namespace SolverLab
             return vars.Count - 1;
         }
 
-        public int AddVars(string[] name, double[] objval, double[] lb, double[] ub, VarType[] type)
+        public int[] AddVars(string[] name, double[] objval, double[] lb, double[] ub, VarType[] type)
         {
-            throw new NotImplementedException();
+            int[] indexes = new int[name.Length];
+            for (int i = 0; i < name.Length; ++i)
+            {
+                indexes[i] = AddVar(name[i], objval[i], lb[i], ub[i], type[i]);
+            }
+            return indexes;
         }
 
         public void AddNz(int row, int col, double val)
@@ -232,8 +242,21 @@ namespace SolverLab
         public double[] GetRowValues(int row)
         {
             double[] rowValues = Enumerable.Repeat(0.0, vars.Count).ToArray();
-            nzs.Where(nz => nz.row == row).Select(nz => rowValues[nz.col] = nz.val);
+            foreach (var nz in nzs.Where(nz => nz.row == row))
+            {
+                rowValues[nz.col] = nz.val;
+            }
             return rowValues;
+        }
+
+        public double[] GetLowerBounds()
+        {
+            return vars.Values.Select(v => v.lb).ToArray();
+        }
+
+        public double[] GetUpperBounds()
+        {
+            return vars.Values.Select(v => v.ub).ToArray();
         }
 
         public abstract double[] GetDualPrices();
@@ -299,5 +322,10 @@ namespace SolverLab
         public int row { get; set; }
         public int col { get; set; }
         public double val;
+
+        public override string ToString()
+        {
+            return string.Format("R: {0} C: {1} V: {2}", row, col, val);
+        }
     }
 }

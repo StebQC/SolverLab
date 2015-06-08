@@ -48,7 +48,7 @@ namespace SolverLab.CbcSolver
         public static extern unsafe int Cbc_status(IntPtr model);
         [DllImport(_dllName)]
         public static extern unsafe int Cbc_secondaryStatus(IntPtr model);
-
-        
+        [DllImport(_dllName)]
+        public static extern unsafe void Cbc_deleteModel(IntPtr model);
     }       
 }

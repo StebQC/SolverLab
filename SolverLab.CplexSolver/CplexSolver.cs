@@ -33,7 +33,8 @@ namespace SolverLab.CplexSolver
 
         protected override void InternalChangeObjectives(int[] columns, double[] values)
         {
-            throw new NotImplementedException();
+            _model.SetLinearCoefs(_objective, _vars.Where(v => columns.Contains(v.Key)).Select(v => v.Value).ToArray(), values);
+            throw new NotSupportedException("The code above was not tested. Make sure everything work before removing this exception");
         }
 
         protected override void InternalCreateModel(bool maximize)
