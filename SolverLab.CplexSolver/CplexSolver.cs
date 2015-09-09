@@ -144,9 +144,14 @@ namespace SolverLab.CplexSolver
             return _model.GetValues(_vars.Values.ToArray());
         }
 
-        public override double[] GetDualPrices()
+        public override double[] GetReducedCosts()
         {
-            throw new NotImplementedException();
+            return _model.GetReducedCosts(_vars.Values.ToArray());
+        }
+
+        public override double[] GetShadowPrices()
+        {
+            return _model.GetDuals(_consts.Values.ToArray());
         }
 
         public override void DeleteModel()

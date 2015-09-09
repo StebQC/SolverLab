@@ -294,7 +294,12 @@ namespace SolverLab.GlpkSolver
             return values;
         }
 
-        public override double[] GetDualPrices()
+        public override double[] GetReducedCosts()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override double[] GetShadowPrices()
         {
             throw new NotImplementedException();
         }

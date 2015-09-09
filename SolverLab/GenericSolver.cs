@@ -259,7 +259,9 @@ namespace SolverLab
             return vars.Values.Select(v => v.ub).ToArray();
         }
 
-        public abstract double[] GetDualPrices();
+        public abstract double[] GetReducedCosts();
+
+        public abstract double[] GetShadowPrices();
 
         public abstract void DeleteModel();
 

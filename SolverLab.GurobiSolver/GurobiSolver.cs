@@ -146,7 +146,17 @@ namespace SolverLab.GurobiSolver
             return values;
         }
 
-        public override double[] GetDualPrices()
+        public override double[] GetReducedCosts()
+        {
+            double[] values = new double[_vars.Count];
+            foreach (var v in _vars)
+            {
+                values[v.Key] = v.Value.Get(GRB.DoubleAttr.RC);
+            }
+            return values;
+        }
+
+        public override double[] GetShadowPrices()
         {
             throw new NotImplementedException();
         }
